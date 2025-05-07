@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue three</title>
+    <script src="https://unpkg.com/vue@3.0.2"></script>
+</head>
+<body>
+
+    <h1>
+        Hello vue
+    </h1>
+
+    <div id="app">
+        <h2>T-Commerce</h2>
+        <!-- <img :src="iPhone_12_Blue.webp"> -->
+        <div v-if="isEmpty">
+            <p>
+                {{productName}}
+                <br>
+                R{{price}}
+                <br>
+                {{productDescription}}
+                <br>
+                {{Quantity}}
+                <br>
+                {{isEmpty}}
+            </p>
+            
+        </div>
+        
+        <button v-on:click="addToCart">To Cart</button>
+        <!-- <div v-on:click="changeTitle('new_title')">changes the title</div> -->
+    </div>
+
+    <!-- <div id="content">
+        <h2> listen i am just practicing relax</h2>
+        <p>cart has {{cart}} items</p>
+        <button v-on:click="addProduct()">
+            add product to cart
+        </button>
+
+        <button @click="removeProduct()">
+            number of products removed 
+        </button>
+    </div> -->
+
+    <script src="app.js"></script>
+</body>
+</html>
