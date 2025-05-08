@@ -7,13 +7,9 @@
     <script src="https://unpkg.com/vue@3.0.2"></script>
 </head>
 <body>
-
-    <h1>
-        Hello vue
-    </h1>
-
     <div id="app">
         <h2>Apple-12-Commerce</h2>
+        <!-- in order for data to show the condition should be true -->
         <template v-if="!isEmpty">
         <div>
             <div id="picture">
@@ -36,9 +32,13 @@
     </template>
         
         <button v-on:click="addToCart">To Cart</button>
-        <!-- <button v-on:click="calculateTotal">Check Total</div> -->
+        <button @click="buyItem">Buy items</button>
+        <button @click="removeProduct">remove product</button>
     </div>
 
+        <!-- depreciated -->
+        <!-- <button v-on:click="calculateTotal">Check Total</div> -->
+    <!-- figure out what to do with this code or remove it  -->
     <!-- <div id="content">
         <h2> listen i am just practicing relax</h2>
         <p>cart has {{cart}} items</p>
@@ -59,7 +59,7 @@
             background-color: white;
         }
         
-        picture, img{
+        img{
             width: 150px;
             height: 150px;
         }

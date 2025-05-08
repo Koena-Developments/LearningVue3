@@ -20,9 +20,10 @@ const app= Vue.createApp({
             firstly check the Quantity first if it is = 0 then update the isEmpty status to true
             else false 
             */
-            if(this.Quantity === 0){
+            if(this.Quantity <= 0){
                 this.isEmpty = false
             }
+
            
         },
         addToCart()
@@ -31,6 +32,19 @@ const app= Vue.createApp({
             this.Quantity +=1
             this.calculateTotal()
 
+        },
+
+        buyItem()
+        {
+            alert("you purchased " + this.Quantity + " items " + " costing " + this.total)
+            
+        },
+        removeProduct()
+        {
+            // remove the product and then return new total
+            this.checkingStatus()
+            this.Quantity -=1
+            this.calculateTotal()
         },
         calculateTotal()
         {
