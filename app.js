@@ -1,105 +1,66 @@
-// import {ref} from 'vue'
-
 const app = Vue.createApp({
-
-    data() {
-        return {
-            Quantity: 0,
-            products: [
-                { productName: 'Iphone 12', price: 10000, productDescription: "this is the new iphone 12 which you need to buy", MadeIn: "South Africa", total: 0 },
-                { productName: 'Iphone 15', price: 15000, productDescription: "this is the new iphone 15 which you need to buy", MadeIn: "South Africa", total: 0 },
-                { productName: 'Iphone 16', price: 24000, productDescription: "this is the new iphone 16 which you need to buy", MadeIn: "South Africa", total: 0 }
-            ],
-            isNotEmpty: false
+  data() {
+    return {
+      products: [
+        {
+          productName: 'iPhone 12',
+          price: 10000,
+          productDescription: "This is the new iPhone 12 which you need to buy",
+          MadeIn: "South Africa",
+          quantity: 0,
+          total: 0
+        },
+        {
+          productName: 'iPhone 15',
+          price: 15000,
+          productDescription: "This is the new iPhone 15 which you need to buy",
+          MadeIn: "South Africa",
+          quantity: 0,
+          total: 0
+        },
+        {
+          productName: 'iPhone 16',
+          price: 24000,
+          productDescription: "This is the new iPhone 16 which you need to buy",
+          MadeIn: "South Africa",
+          quantity: 0,
+          total: 0
         }
+      ],
+      isNotEmpty: false
+    };
+  },
+  methods: {
+    addToCart(product) {
+      product.quantity += 1;
+      product.total = product.quantity * product.price;
+      this.checkingStatus();
     },
-    methods: {
-        checkingStatus() {
-            /*i want to create a function that checks the state of the Items in the cart
-            firstly check the Quantity first if it is = 0 then update the isEmpty status to true
-            else false 
-            */
-            if (this.Quantity > 0) {
-                this.isNotEmpty = true
-            }
-            else {
-                this.isNotEmpty = false
-            }
-        },
 
-
-        addToCart() {
-            this.Quantity +=1
-            for (i = 0; i < this.products.length; i++) {
-                  console.log(this.products[i].price)  
-            }
-            this.checkingStatus(this.Quantity)
-            this.calculateTotal()
-        },
-
-        buyItem() {
-            alert("you purchased " + this.Quantity + " items costing " + this.total)
-        },
-
-        // remove the product and then return new total
-        removeProduct() {
-            this.checkingStatus()
-            this.Quantity -= 1
-            this.calculateTotal()
-        },
-
-        // i want to get the Quantity and price of item multiply them and display them
-
-        calculateTotal() {
-            for(i = 0; i < this.products.length;i++)
-            {
-                this.products[i].total = this.Quantity * this.products[i].price
-            }
-        },
-    }
-})
-app.mount('#app')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const app2 = Vue.createApp({
-    data() {
-        return {
-            isCardEmpty: false,
-            cart: 0
-        }
+    removeProduct(product) {
+      if (product.quantity > 0) {
+        product.quantity -= 1;
+        product.total = product.quantity * product.price;
+        this.checkingStatus();
+      }
     },
-    methods: {
-        addProduct() {
-            this.cart += 1
 
-        },
-        removeProduct() {
-            this.cart -= 1
-        }
+    buyItem(product) {
+      if (product.quantity > 0) {
+        alert(`You purchased ${product.quantity} of ${product.productName} for R${product.total}`);
+        product.quantity = 0;
+        product.total = 0;
+        this.checkingStatus();
+      } else {
+        alert("No quantity selected for this product.");
+      }
+    },
+
+    checkingStatus() {
+      const hasItems = this.products.some(p => p.quantity > 0);
+      this.isNotEmpty = hasItems;
     }
-})
-app2.mount('#content')
+  }
+});
+
+app.mount('#app');
