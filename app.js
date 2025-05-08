@@ -21,6 +21,10 @@ const app= Vue.createApp({
             else false 
             */
             if(this.Quantity <= 0){
+                this.isEmpty = true
+            }
+            else
+            {
                 this.isEmpty = false
             }
 
