@@ -10,22 +10,23 @@
     <div id="app">
         <h2>Apple-12-Commerce</h2>
         <!-- in order for data to show the condition should be true -->
-        {{isEmpty}}
-        <template v-if="!isEmpty">
-        <div>
+        {{isNotEmpty}}
+
+        <template v-if="isNotEmpty">
+        <div v-for="product in products">
             <div id="picture">
                 <img src="iPhone_12_Blue.webp">
             </div>
             <p>
-                {{productName}}
+                {{product.productName}}
                 <br>
-                R{{price}}
+                R{{product.price}}
                 <br>
-                {{productDescription}}
+                {{product.productDescription}}
                 <br>
                 {{Quantity}}
                 <br>
-                R{{total}}
+                R{{product.total}}
             </p>
         </div>
     </template>
@@ -33,25 +34,7 @@
         <button @click="buyItem">Buy items</button>
         <button @click="removeProduct">remove product</button>
     </div>
-
-        <!-- depreciated -->
-        <!-- <button v-on:click="calculateTotal">Check Total</div> -->
-    <!-- figure out what to do with this code or remove it  -->
-    <!-- <div id="content">
-        <h2> listen i am just practicing relax</h2>
-        <p>cart has {{cart}} items</p>
-        <button v-on:click="addProduct()">
-            add product to cart
-        </button>
-
-        <button @click="removeProduct()">
-            number of products removed 
-        </button>
-    </div> -->
-
     <script src="app.js"></script>
-
-
     <style>
         *{
             background-color: white;
