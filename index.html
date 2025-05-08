@@ -14,8 +14,11 @@
 
     <div id="app">
         <h2>T-Commerce</h2>
-        <!-- <img :src="iPhone_12_Blue.webp"> -->
+        
         <div v-if="isEmpty">
+            <div id="picture">
+                <img src="iPhone_12_Blue.webp">
+            </div>
             <p>
                 {{productName}}
                 <br>
@@ -27,7 +30,6 @@
                 <br>
                 {{isEmpty}}
             </p>
-            
         </div>
         
         <button v-on:click="addToCart">To Cart</button>
@@ -47,5 +49,17 @@
     </div> -->
 
     <script src="app.js"></script>
+
+
+    <style>
+        *{
+            background-color: white;
+        }
+        
+        picture, img{
+            width: 150px;
+            height: 150px;
+        }
+    </style>
 </body>
 </html>

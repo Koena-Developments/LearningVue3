@@ -6,7 +6,8 @@ const app= Vue.createApp({
             productDescription: 'this is the new iphone12 which you need to buy',
             MadeIn: 'south africa',
             Quantity:0,
-            isEmpty: false
+            isEmpty: false,
+            total: 0
         }
     },
     methods:{
@@ -18,9 +19,12 @@ const app= Vue.createApp({
             */
 
             if(this.Quantity == 0){
-                this.isEmpty = true
+                this.isEmpty = !this.isEmpty
             }
         },
+
+    // <button v-on:click="calculateTotal">Check Total</div>
+
 
         addToCart()
         {
@@ -28,6 +32,15 @@ const app= Vue.createApp({
             this.Quantity +=1
 
             // console.log(this.Quantity)
+
+        },
+
+        calculateTotal()
+        {
+            // i want to get the Quantity and price of item multiply them and display them
+            const total = this.Quantity * this.price
+            console.log("the new total R" + total)
+
 
         },
 
