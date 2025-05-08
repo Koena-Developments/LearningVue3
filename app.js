@@ -1,4 +1,7 @@
+// import {ref} from 'vue'
+
 const app= Vue.createApp({
+    
     data(){
         return{
             productName:'Iphone 12',
@@ -6,47 +9,34 @@ const app= Vue.createApp({
             productDescription: 'this is the new iphone12 which you need to buy',
             MadeIn: 'south africa',
             Quantity:0,
-            isEmpty: false,
+            isEmpty: true,
             total: 0
         }
     },
     methods:{
-        checkingStatus(cartStatus)
+        checkingStatus()
         {
             /*i want to create a function that checks the state of the Items in the cart
             firstly check the Quantity first if it is = 0 then update the isEmpty status to true
             else false 
             */
-
-            if(this.Quantity == 0){
-                this.isEmpty = !this.isEmpty
+            if(this.Quantity === 0){
+                this.isEmpty = false
             }
+           
         },
-
-    // <button v-on:click="calculateTotal">Check Total</div>
-
-
         addToCart()
         {
             this.checkingStatus(this.Quantity)
             this.Quantity +=1
-
-            // console.log(this.Quantity)
+            this.calculateTotal()
 
         },
-
         calculateTotal()
         {
+            //  this.total = ref(0)
             // i want to get the Quantity and price of item multiply them and display them
-            const total = this.Quantity * this.price
-            console.log("the new total R" + total)
-
-
-        },
-
-        changeTitle(newTitle)
-        {
-            this.title = newTitle
+            this.total = this.Quantity * this.price
         },
     }
 })

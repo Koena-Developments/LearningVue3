@@ -13,9 +13,9 @@
     </h1>
 
     <div id="app">
-        <h2>T-Commerce</h2>
-        
-        <div v-if="isEmpty">
+        <h2>Apple-12-Commerce</h2>
+        <template v-if="!isEmpty">
+        <div>
             <div id="picture">
                 <img src="iPhone_12_Blue.webp">
             </div>
@@ -29,11 +29,14 @@
                 {{Quantity}}
                 <br>
                 {{isEmpty}}
+                <br>
+                R{{total}}
             </p>
         </div>
+    </template>
         
         <button v-on:click="addToCart">To Cart</button>
-        <!-- <div v-on:click="changeTitle('new_title')">changes the title</div> -->
+        <!-- <button v-on:click="calculateTotal">Check Total</div> -->
     </div>
 
     <!-- <div id="content">
