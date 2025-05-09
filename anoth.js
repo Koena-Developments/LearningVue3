@@ -8,8 +8,6 @@ const app2 = Vue.createApp({
     category: string,
     image: "url"
     */
-
-
     data() {
         return {
             fakerstore: [],
@@ -17,8 +15,6 @@ const app2 = Vue.createApp({
             counter: 0,
             total: 0,
             isNotEmpty: false
-
-            
         };
     },
     methods: {
