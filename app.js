@@ -1,6 +1,17 @@
+/*
+    structure of the data
+    id: 1,
+    title: "string",
+    price:, 0.1,
+    description: 'string',
+    category: string,
+    image: "url"
+*/
+
 const app = Vue.createApp({
     data() {
       return {
+     
         products: [
           {
             productName: 'iPhone 12',
@@ -24,6 +35,9 @@ const app = Vue.createApp({
             total: 0
           }
         ],
+
+        // for holding faker store products
+        fakestoreproducts:[],
         isNotEmpty: false
       };
     },
@@ -60,7 +74,7 @@ const app = Vue.createApp({
       },
       checkingStatus() {
         this.isNotEmpty = this.products.some(p => p.quantity > 0);
-      }
+      },
     }
   });
   
