@@ -38,14 +38,23 @@
       </style>
 </head>
 <body>
+    <h2>fake-store</h2>
     <div id="anth">
-        <div class="product-card" v-for="p in fakerstore" :key="p.id">
-            <img :src="p.image" alt="Product image" />
-            <p><strong>{{ p.title }}</strong></p>
-            <p>R{{ p.price }}</p>
-            <p>Description: {{ p.description }}</p>
-            <p>Category: {{ p.category }}</p>
-           
+        <div class="product-card" v-for="product in fakerstore" :key="product.id">
+            <img :src="product.image" alt="Product image" />
+            <p><strong>{{ product.title }}</strong></p>
+            <p>R{{ product.price }}</p>
+            <p>Description: {{ product.description }}</p>
+            <p>Category: {{ product.category }}</p>
+            <button @click="addToCart(product)">Add to Cart</button>
+            <button @click="removeProduct(product)">Remove</button>
+            </div>
+            <div v-if="true">
+                <h3>Checkout Summary</h3>
+                <p>Total Items: {{ counter }}</p>
+                <p>Total Price: R{{ total }}</p>
+                <button @click="checkout">Checkout</button>
+              </div>
     </div>
 
     <script src="anoth.js">

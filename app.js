@@ -1,43 +1,28 @@
-/*
-    structure of the data
-    id: 1,
-    title: "string",
-    price:, 0.1,
-    description: 'string',
-    category: string,
-    image: "url"
-*/
-
 const app = Vue.createApp({
     data() {
       return {
-     
-        products: [
-          {
-            productName: 'iPhone 12',
-            price: 10000,
-            productDescription: "This is the new iPhone 12 which you need to buy",
-            quantity: 0,
-            total: 0
-          },
-          {
-            productName: 'iPhone 15',
-            price: 15000,
-            productDescription: "This is the new iPhone 15 which you need to buy",
-            quantity: 0,
-            total: 0
-          },
-          {
-            productName: 'iPhone 16',
-            price: 24000,
-            productDescription: "This is the new iPhone 16 which you need to buy",
-            quantity: 0,
-            total: 0
-          }
-        ],
-
-        // for holding faker store products
-        fakestoreproducts:[],
+    products: [
+    {
+    productName: 'iPhone 12',
+    price: 10000,
+    productDescription: "This is the new iPhone 12 which you need to buy",
+    quantity: 0,
+    total: 0
+    },
+  {
+    productName: 'iPhone 15',
+    price: 15000,
+    productDescription: "This is the new iPhone 15 which you need to buy",
+    quantity: 0,
+    total: 0
+  },
+  {
+    productName: 'iPhone 16',
+    price: 24000,
+    productDescription: "This is the new iPhone 16 which you need to buy",
+    quantity: 0,
+    total: 0
+  } ],
         isNotEmpty: false
       };
     },
