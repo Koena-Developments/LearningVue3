@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vue three</title>
+  <title>Vue Shopping Cart</title>
   <script src="https://unpkg.com/vue@3.0.2"></script>
   <style>
     body {
@@ -48,12 +48,17 @@
     <p>{{ product.productDescription }}</p>
     <p>Quantity: {{ product.quantity }}</p>
     <p>Total: R{{ product.total }}</p>
-    <button @click="addToCart(product)">To Cart</button>
-    <button @click="buyItem(product)">Buy Item</button>
-    <button @click="removeProduct(product)">Remove Product</button>
+    <button @click="addToCart(product)">Add to Cart</button>
+    <button @click="removeProduct(product)">Remove</button>
+  </div>
+
+  <div v-if="isNotEmpty">
+    <h3>Checkout Summary</h3>
+    <p>Total Items: {{ totalQuantity }}</p>
+    <p>Total Price: R{{ grandTotal }}</p>
+    <button @click="checkout">Checkout</button>
   </div>
 </div>
-
 
 <script src="app.js"></script>
 </body>
