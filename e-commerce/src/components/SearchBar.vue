@@ -57,7 +57,6 @@ export default {
       this.showSuggestions = false;
     },
     hideSuggestions() {
-      // delay so selectSuggestion can fire
       setTimeout(() => (this.showSuggestions = false), 200);
     }
   }

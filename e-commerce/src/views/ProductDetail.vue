@@ -11,6 +11,7 @@
       </div>
     </header>
 
+    <!-- product card -->
     <div class="detail">
       <div class="image" v-if="product">
         <img :src="product.image" alt="Product image" />
@@ -99,26 +100,31 @@ export default {
       this.calculateTotal();
       document.body.classList.add('activeTabCart');
     },
+
     handleAddToCartSimilar(prod) {
       this.cart.push(prod);
       this.counter = this.cart.length;
       this.calculateTotal();
       document.body.classList.add('activeTabCart');
     },
+    
     calculateTotal() {
       this.total = this.cart.reduce((sum, p) => sum + p.price, 0);
     },
+    
     clearCart() {
       this.cart = [];
       this.counter = 0;
       this.total = 0;
       document.body.classList.remove('activeTabCart');
     },
+    
     checkout() {
       if (!this.counter) return alert('Cart is empty');
       alert(`Checked out ${this.counter} items totaling R${this.total.toFixed(2)}`);
       this.clearCart();
     },
+    
     toggleSidebar() {
       document.body.classList.toggle('activeTabCart');
     }
@@ -172,37 +178,45 @@ header {
   top: 50%;
   right: -20px;
 }
+
 .title {
   font-size: xx-large;
   margin: 20px 0;
 }
+
 .detail {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
   text-align: left;
 }
+
 .image img {
   width: 100%;
 }
+
 .content {
   padding-left: 20px;
 }
+
 .name {
   font-size: xxx-large;
   margin: 40px 0 10px;
 }
+
 .price {
   font-weight: bold;
   font-size: x-large;
   letter-spacing: 7px;
   margin-bottom: 20px;
 }
+
 .buttons {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
 }
+
 .buttons button {
   background-color: #eee;
   border: none;
@@ -212,9 +226,11 @@ header {
   font-size: large;
   cursor: pointer;
 }
+
 .buttons svg {
   width: 15px;
 }
+
 .buttons span {
   background-color: #555454;
   width: 30px;
@@ -225,16 +241,26 @@ header {
   border-radius: 50%;
   margin-left: 20px;
 }
+
+ img
+{
+  width: 200px;
+}
+
 .description {
   font-weight: 300;
 }
+
 .listProduct {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 20px;
 }
+
+
 /* Cart Sidebar */
+
 .cartTab {
   width: 400px;
   max-width: 100%;
@@ -242,14 +268,15 @@ header {
   color: #eee;
   position: fixed;
   top: 0;
-  right: -400px;
+  right: -30%;
   bottom: 0;
   display: grid;
   grid-template-rows: 70px 1fr 70px;
   transition: .5s;
 }
+
 body.activeTabCart .cartTab {
-  right: 0;
+  right: -70%;
 }
 body.activeTabCart .container {
   transform: translateX(-250px);
