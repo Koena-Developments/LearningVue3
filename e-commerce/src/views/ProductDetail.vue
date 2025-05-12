@@ -187,7 +187,7 @@ header {
 }
 
 .title {
-  font-size: xx-large;
+  font-size: 2em;
   margin: 20px 0;
   border: 2px solid red;
 }
@@ -205,8 +205,6 @@ img {
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
   text-align: left;
-
-  /* width: 50; */
 }
 
 .image img {
