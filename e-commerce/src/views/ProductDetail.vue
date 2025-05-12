@@ -40,8 +40,9 @@
         <img :src="sim.image" alt="Similar product" />
         <h2>{{ sim.title }}</h2>
         <div class="price">R{{ sim.price }}</div>
+        <!-- <div>{{ sim.id }}</div> -->
         <button @click="handleAddToCartSimilar(sim)">Add to Cart</button>
-        <router-link :to="`/product/${sim.id}`"><button>View</button></router-link>
+        <router-link :to="`/product/${sim.id}`"><button @Click="refreshPage()">View</button></router-link>
       </div>
     </div>
 
@@ -94,6 +95,12 @@ export default {
             .slice(0, 4);
         });
     },
+    // does not work need to change it
+    refreshPage()
+    {
+      window.location.reload()
+    },
+
     handleAddToCart() {
       this.cart.push(this.product);
       this.counter = this.cart.length;
@@ -182,21 +189,33 @@ header {
 .title {
   font-size: xx-large;
   margin: 20px 0;
+  border: 2px solid red;
 }
+
+
+img {
+  margin: 20px 0;
+  width: 10px;
+  border: 2px solid black;
+}
+
 
 .detail {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
   text-align: left;
+
+  /* width: 50; */
 }
 
 .image img {
-  width: 100%;
+  width: 79%;
 }
 
 .content {
-  padding-left: 20px;
+  padding-left: 50px;
+  margin-top: -40px;
 }
 
 .name {

@@ -25,7 +25,6 @@
       <ul v-if="showSuggestions && filteredSuggestions.length" class="suggestions">
         <li v-for="s in filteredSuggestions" :key="s.id" @mousedown.prevent="selectSuggestion(s)">
           {{ s.title }}
-          <!-- <img :src="s.image" /> -->
         </li>
       </ul>
     </div>
@@ -54,7 +53,6 @@
       </div>
 
         <div class="totalAmount">R{{ total }}</div>
-    
       <div class="btn">
         <button class="close" @click="clearCart">CLOSE</button>
         <button class="checkOut" @click="checkout">Check Out</button>
@@ -81,6 +79,7 @@ export default {
       const term = this.searchTerm.toLowerCase();
       return this.fakerstore.filter(p => p.title.toLowerCase().includes(term)).slice(0, 5);
     },
+
     filteredProducts() {
       const term = this.searchTerm.toLowerCase();
       return this.fakerstore.filter(p => p.title.toLowerCase().includes(term));
@@ -101,6 +100,7 @@ export default {
       document.body.classList.add('activeTabCart');
     },
 
+    // method that i am most proud of
     removeProduct(product) {
       const idx = this.cart.indexOf(product);
       if (idx > -1) {
@@ -135,7 +135,7 @@ export default {
       this.searchTerm = item.title;
       this.showSuggestions = false;
     },
-    
+
     hideSuggestions() {
       setTimeout(() => (this.showSuggestions = false), 200);
     }
