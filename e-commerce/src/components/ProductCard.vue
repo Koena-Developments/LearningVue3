@@ -50,20 +50,33 @@ export default {
   border-radius: 20px;
   filter: drop-shadow(0 50px 20px #0009);
   width: 200px;
-  height: auto;
+  height: 200px;
   cursor: pointer;
+  transition: 2s ease-in;
 }
 
 
 .details
 {
   position: absolute;
-  width: 90%;
-  height: auto;
-  border: 1px solid red;
-  padding: 15px;
+  bottom: 0;
+  /* background-color: #008CBA; */
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  font-size: 12px;
+  transition: .5s ease;
 }
 
+.item:hover .details {
+  height: 78%;
+  color: white;
+}
+.item:hover
+{
+  background: black;
+  
+}
 
 .item .title
 {
@@ -71,6 +84,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  width: 100%;
   height: 86px;
 }
 .item img {
@@ -79,9 +93,7 @@ export default {
   height: 100px;
   object-fit: contain;
 }
-/* .item img:hover {
-  zoom:50%;
-} */
+
 
 .item h2 {
   font-weight: 500;
