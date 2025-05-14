@@ -131,6 +131,11 @@ svg {
   width: 30px;
 }
 
+svg:hover{
+  animation: cart_shake 0.2s;
+  animation-iteration-count: infinite;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -141,6 +146,7 @@ header {
 .icon-cart {
   position: relative;
   cursor: pointer;
+  animation-name: cart_shake;
 }
 
 .icon-cart span {
@@ -173,6 +179,11 @@ body.activeTabCart .container {
 
 body.activeTabCart .cartTab {
   right: -80%;
+}
+
+@keyframes cart_shake {
+  0% {transform: rotate(12deg);}
+  100%{transform: rotate(-12deg);}
 }
 
 @media (max-width: 992px) {

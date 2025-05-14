@@ -4,7 +4,7 @@
       type="text"
       v-model="searchTerm"
       placeholder="Search products..."
-      @focus="showSuggestions = true"
+      @focus="showSuggestions = false"
       @blur="hideSuggestions"
     />
     <ul v-if="showSuggestions && filteredSuggestions.length" class="suggestions">
@@ -32,11 +32,12 @@ export default {
     }
   },
   computed: {
-    filteredSuggestions() {
-      const term = this.searchTerm.toLowerCase();
-      return this.products.filter(p => p.title.toLowerCase().includes(term)).slice(0, 5);
-    }
-  },
+  filteredSuggestions() {
+    const term = this.searchTerm.toLowerCase();
+    return this.products.filter(p => p.title.toLowerCase().includes(term) || p.price.toString().includes(term)).slice(0, 5);
+    }  
+},
+
   methods: {
     
     selectSuggestion(item) {
@@ -46,12 +47,15 @@ export default {
     },
     hideSuggestions() {
       setTimeout(() => (this.showSuggestions = false), 200);
-    }
-  },
+    },
+   
+    },
+
   watch: {
     searchTerm(newTerm) {
       this.$emit('search', newTerm);
-    }
+    },
+     
   }
 };
 </script>

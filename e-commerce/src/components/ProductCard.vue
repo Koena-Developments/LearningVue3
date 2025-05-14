@@ -76,11 +76,9 @@ export default {
   height: 86px;
 }
 .item img {
-  /* border-radius: 4px solid red; */
   width: 150px;
   height: 150px;
   object-fit: contain;
-  /* transition: .1s ease; */
 }
 
 
@@ -111,11 +109,9 @@ export default {
 .item:hover
 {
   background: black;
-   transform: scale(1.1);
-
+  transform: scale(1.1);
 }
 .item img:hover {
-  border-radius: 4px solid red;
   width: 150px;
   height: 150px;
   object-fit: contain;
