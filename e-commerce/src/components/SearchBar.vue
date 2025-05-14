@@ -4,10 +4,10 @@
       type="text"
       v-model="searchTerm"
       placeholder="Search products..."
-      @focus="showSuggestions = false"
+      @focus="showSuggestions = true"
       @blur="hideSuggestions"
     />
-    <ul v-if="showSuggestions && filteredSuggestions.length" class="suggestions">
+    <ul v-if="showSuggestions && filteredSuggestions.length && searchTerm.length > 2" class="suggestions">
       <li v-for="s in filteredSuggestions" :key="s.id" @mousedown.prevent="selectSuggestion(s)">
         {{ s.title }}
       </li>
