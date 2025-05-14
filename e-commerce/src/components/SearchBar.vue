@@ -37,7 +37,6 @@ export default {
     return this.products.filter(p => p.title.toLowerCase().includes(term) || p.price.toString().includes(term)).slice(0, 5);
     }  
 },
-
   methods: {
     
     selectSuggestion(item) {
