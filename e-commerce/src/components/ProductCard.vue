@@ -48,34 +48,22 @@ export default {
   background: #EEEEE6;
   padding: 20px;
   border-radius: 20px;
-  filter: drop-shadow(0 50px 20px #0009);
+  filter: drop-shadow(0 15px 20px #0009);
   width: 200px;
   height: 200px;
   cursor: pointer;
-  transition: 2s ease-in;
+  transition: .5s ease-in;
 }
-
 
 .details
 {
   position: absolute;
   bottom: 0;
-  /* background-color: #008CBA; */
   overflow: hidden;
   width: 100%;
   height: 0;
   font-size: 12px;
   transition: .5s ease;
-}
-
-.item:hover .details {
-  height: 78%;
-  color: white;
-}
-.item:hover
-{
-  background: black;
-  
 }
 
 .item .title
@@ -88,10 +76,11 @@ export default {
   height: 86px;
 }
 .item img {
-  border-radius: 4px solid red;
-  width: 100px;
-  height: 100px;
+  /* border-radius: 4px solid red; */
+  width: 150px;
+  height: 150px;
   object-fit: contain;
+  /* transition: .1s ease; */
 }
 
 
@@ -104,14 +93,32 @@ export default {
   letter-spacing: 7px;
   font-size: 18px;
 }
-
 .item button {
   background: #353432;
   color: #eee;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 10px;
   margin-top: 10px;
   border-radius: 20px;
+  margin-left: 4px;
   cursor: pointer;
 }
+
+.item:hover .details {
+  height: 85%;
+  color: white;
+}
+.item:hover
+{
+  background: black;
+   transform: scale(1.1);
+
+}
+.item img:hover {
+  border-radius: 4px solid red;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+} 
+
 </style>
