@@ -100,12 +100,28 @@ export default {
     //   this.calculateTotal();
     //   document.body.classList.add('activeTabCart');
     // },
-  
-   
+    handleAddToCartSimilar(prod) {
+      this.cart.push(prod);
+      this.counter = this.cart.length;
+      this.calculateTotal();
+      document.body.classList.add('activeTabCart');
+    },
+    handleRemoveSimilarProduct(productToRemove) {
+      const indexToRemove = this.similarProducts.findIndex((product) => product.id === productToRemove.id);
+      if (indexToRemove !== -1)
+      {
+        this.similarProducts.splice(indexToRemove, 1);
+      }
+    },
     calculateTotal() {
       this.total = this.cart.reduce((sum, p) => sum + p.price, 0);
     },
-    
+    clearCart() {
+      this.cart = [];
+      this.counter = 0;
+      this.total = 0;
+      document.body.classList.remove('activeTabCart');
+    },
     checkout() {
       if (!this.counter) return alert('Cart is empty');
       alert(`Checked out ${this.counter} items totaling R${this.total.toFixed(2)}`);
@@ -302,6 +318,101 @@ img {
   background-color: #ddb347;
 }
 
+.cartTab {
+  width: 400px;
+  max-width: 90%;
+  background-color: #353432;
+  color: #eee;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  bottom: 0;
+  display: grid;
+  grid-template-rows: 70px 1fr 70px;
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+}
+
+body.activeTabCart .cartTab {
+  transform: translateX(-100%);
+}
+
+body.activeTabCart .container {
+  transform: translateX(-200px);
+}
+
+.cartTab h1 {
+  padding: 20px;
+  margin: 0;
+  font-weight: 300;
+  text-align: center;
+}
+
+.listCart {
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.listCart::-webkit-scrollbar {
+  width: 0;
+}
+
+.listCart .item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+}
+
+.listCart .item:last-child {
+  border-bottom: none;
+}
+
+.listCart .item img {
+  width: 60px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.listCart .item div:nth-child(2) {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.listCart .item div:nth-child(3) {
+  font-weight: bold;
+}
+
+.cartTab .btn {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cartTab button {
+  background-color: #E8BC0E;
+  border: none;
+  font-family: Poppins;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 15px 0;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.cartTab button:hover {
+  background-color: #d1a608;
+}
+
+.cartTab .close {
+  background-color: #eee;
+  color: #333;
+}
+
+.cartTab .close:hover {
+  background-color: #ddd;
+}
 
 /* Responsive */
 @media only screen and (max-width: 992px) {
