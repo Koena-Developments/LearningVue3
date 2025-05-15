@@ -12,7 +12,7 @@
 
     </div>
     
-    <div>
+    <div class="btns">
       <button @click="$emit('add-to-cart', product)">Add to Cart</button>
      <button @click="$emit('remove-product', product)">Remove</button> 
     </div>

@@ -6,8 +6,8 @@
       placeholder="Search products..."
       @focus="showSuggestions = true"
       @blur="hideSuggestions"
-    />
-    <ul v-if="showSuggestions && filteredSuggestions.length && searchTerm.length > 2" class="suggestions">
+    />                                                  
+    <ul v-if="showSuggestions && filteredSuggestions.length" class="suggestions">
       <li v-for="s in filteredSuggestions" :key="s.id" @mousedown.prevent="selectSuggestion(s)">
         {{ s.title }}
       </li>
@@ -32,10 +32,15 @@ export default {
     }
   },
   computed: {
-  filteredSuggestions() {
-    const term = this.searchTerm.toLowerCase();
+   
+filteredSuggestions() {
+ const term = this.searchTerm.toLowerCase();
+  if (term.length <= 2) {
+    return [];
+    }
     return this.products.filter(p => p.title.toLowerCase().includes(term) || p.price.toString().includes(term)).slice(0, 5);
-    }  
+}
+
 },
   methods: {
     
@@ -51,10 +56,9 @@ export default {
     },
 
   watch: {
-    searchTerm(newTerm) {
+    search_Term(newTerm) {
       this.$emit('search', newTerm);
     },
-     
   }
 };
 </script>
@@ -93,6 +97,6 @@ export default {
 }
 
 .search-container .suggestions li:hover {
-  background: #f0f0f0;
+  background: #474545;
 }
 </style>
