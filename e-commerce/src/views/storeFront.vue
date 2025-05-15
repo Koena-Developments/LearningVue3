@@ -174,7 +174,7 @@ header {
 }
 
 body.activeTabCart .container {
-  transform: translateX(-250px);
+  transform: translateX(-20px);
 }
 
 body.activeTabCart .cartTab {

@@ -56,7 +56,7 @@ filteredSuggestions() {
     },
 
   watch: {
-    search_Term(newTerm) {
+    searchTerm(newTerm) {
       this.$emit('search', newTerm);
     },
   }
