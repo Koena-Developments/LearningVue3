@@ -91,9 +91,20 @@ export default {
 
     checkout() {
       if (!this.cart.length)
+       {
         return alert('Cart is empty');
-      alert(`You checked out ${this.cart.length} items totaling R${this.total.toFixed(2)}`);
+        }
+      const paymentLinks = {1: 'https://buy.stripe.com/test_eVqaEZ6L6bgi5wMgOD1wY01', 2: 'https://buy.stripe.com/test_6oUeVfedy702aR655V1wY02'};
+      const productId = this.cart[0].id;
+      const link = paymentLinks[productId]
+      if(link)
+      {
+        window.location.href=link;
+        return;
+      }
+        alert(`You checked out ${this.cart.length} items totaling R${this.total.toFixed(2)}`);
       this.clearCart();
+
     },
 
     toggleSidebar() {
@@ -178,7 +189,7 @@ body.activeTabCart .container {
 }
 
 body.activeTabCart .cartTab {
-  right: -80%;
+  right: -59%;
 }
 
 @keyframes cart_shake {

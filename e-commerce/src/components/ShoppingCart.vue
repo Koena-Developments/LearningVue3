@@ -37,7 +37,6 @@ export default {
 
 <style scoped>
 
-/* Styles for the shopping cart sidebar */
 .cartTab {
   width: 400px;
   max-width: 50%;
@@ -46,7 +45,7 @@ export default {
   color: #eee;
   position: fixed;
   top: 0;
-  right: -400px;
+  right: -395px;
   bottom: 0;
   display: grid;
   grid-template-rows: 70px 1fr 70px;
@@ -77,10 +76,10 @@ export default {
 
 .btn {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 0.5fr);
   position: fixed;
   bottom: 70%;
-  width: 47%;
+  width: 48%;
 }
 
 .cartTab button {
@@ -95,13 +94,6 @@ export default {
 }
 
 .cartTab button:hover {
-  /* background: #E8BC0E;
-  border: none;
-  font-family: Poppins;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 15px 0;
-  font-size: 1em;  */
   background: #8a7008; 
   
 }
