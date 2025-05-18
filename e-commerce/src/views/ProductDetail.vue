@@ -64,6 +64,7 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line
 import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -81,6 +82,8 @@ const fetchProduct = async (productId) => {
     fetchSimilar()
   } catch (e) { console.error(e) }
 }
+
+
 const fetchSimilar = async () => {
   if (!product.value) return
   const res = await fetch('https://fakestoreapi.com/products')
@@ -88,11 +91,35 @@ const fetchSimilar = async () => {
   similarProducts.value = all.filter(p => p.category === product.value.category && p.id !== product.value.id).slice(0,4)
 }
 
-const calculateTotal = () => { total.value = cart.value.reduce((sum,p) => sum+p.price,0) }
-const addToCart = (item) => { cart.value.push(item); calculateTotal(); document.body.classList.add('activeTabCart') }
-const clearCart = () => { cart.value=[]; total.value=0; document.body.classList.remove('activeTabCart') }
-const checkout = () => { if(!cart.value.length) return alert('Cart is empty'); alert(`Checked out ${cart.value.length} items totaling R${total.value.toFixed(2)}`); clearCart() }
-const toggleSidebar = () => { document.body.classList.toggle('activeTabCart') }
+const calculateTotal = () => {
+ total.value = cart.value.reduce((sum,p) => sum+p.price,0)
+  }
+const addToCart = (item) =>
+ {
+  cart.value.push(item);
+   calculateTotal(); 
+   document.body.classList.add('activeTabCart')
+}
+
+const clearCart = () => 
+{ 
+cart.value=[]; 
+total.value=0; 
+document.body.classList.remove('activeTabCart')
+
+}
+
+const checkout = () => {
+ if(!cart.value.length) 
+ return alert('Cart is empty'); 
+ alert(`Checked out ${cart.value.length} items totaling R${total.value.toFixed(2)}`); 
+ clearCart()
+  }
+
+const toggleSidebar = () => 
+{ 
+document.body.classList.toggle('activeTabCart')
+ }
 
 const route = useRoute()
 onMounted(() => fetchProduct(props.id))

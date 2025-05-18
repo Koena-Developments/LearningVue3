@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line
 defineProps({
   similarProducts: {
     type: Array,

@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line
 import { ref, computed, watch } from 'vue';
 
 const props = defineProps({

@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line
 import CartItem from './CartItem.vue';
 
 defineProps({

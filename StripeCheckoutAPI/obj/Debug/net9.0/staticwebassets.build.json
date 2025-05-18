@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "UBZb6QW2KNoa7ALwqW0YDslIoCfz88a0DXN+No/7Y7g=",
+  "Source": "StripeCheckoutAPI",
+  "BasePath": "_content/StripeCheckoutAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

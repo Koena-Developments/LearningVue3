@@ -26,6 +26,7 @@
 </template>
 
 <script setup>
+// eslint-disable-next-line
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
