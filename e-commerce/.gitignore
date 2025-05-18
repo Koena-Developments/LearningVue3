@@ -6,6 +6,9 @@ node_modules
 # local env files
 .env
 .env.*.local
+appsettings.json
+appsettings.*.json
+
 
 # Log files
 npm-debug.log*
