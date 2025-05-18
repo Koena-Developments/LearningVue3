@@ -18,6 +18,7 @@
       <div class="content">
         <h1 class="name">{{ product.title }}</h1>
         <div class="price">R{{ product.price }}</div>
+        
         <div class="buttons">
           <button @click="handleAddToCartSimilar(product)">
             Add To Cart
@@ -28,6 +29,7 @@
               </svg>
             </span>
           </button>
+        
         </div>
         <div class="description">{{ product.description }}</div>
       </div>
@@ -62,85 +64,46 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProductDetail',
-  props: ['id'],
-  data() {
-    return {
-      product: [],
-      similarProducts: [],
-      cart: [],
-      counter: 0,
-      total: 0
-    };
-  },
-  methods: {
-    fetchProduct(productId = this.$route.params.id) {
-      fetch(`https://fakestoreapi.com/products/${productId}`)
-        .then(r => r.json())
-        .then(data => {
-          this.product = data;
-          this.fetchSimilar();
-        });
-    },
-    fetchSimilar() {
-      if (!this.product) return;
-      fetch('https://fakestoreapi.com/products')
-        .then(r => r.json())
-        .then(all => {
-          this.similarProducts = all
-            .filter(p => p.category === this.product.category && p.id !== this.product.id)
-            .slice(0, 4);
-        });
-    },
-    // handleAddToCart() {
-    //   this.cart.push(this.product);
-    //   this.counter = this.cart.length;
-    //   this.calculateTotal();
-    //   document.body.classList.add('activeTabCart');
-    // },
-    handleAddToCartSimilar(prod) {
-      this.cart.push(prod);
-      this.counter = this.cart.length;
-      this.calculateTotal();
-      document.body.classList.add('activeTabCart');
-    },
-    handleRemoveSimilarProduct(productToRemove) {
-      const indexToRemove = this.similarProducts.findIndex((product) => product.id === productToRemove.id);
-      if (indexToRemove !== -1)
-      {
-        this.similarProducts.splice(indexToRemove, 1);
-      }
-    },
-    calculateTotal() {
-      this.total = this.cart.reduce((sum, p) => sum + p.price, 0);
-    },
-    clearCart() {
-      this.cart = [];
-      this.counter = 0;
-      this.total = 0;
-      document.body.classList.remove('activeTabCart');
-    },
-    checkout() {
-      if (!this.counter) return alert('Cart is empty');
-      alert(`Checked out ${this.counter} items totaling R${this.total.toFixed(2)}`);
-      this.clearCart();
-    },
-    toggleSidebar() {
-      document.body.classList.toggle('activeTabCart');
-    }
-  },
-  watch: {
-    '$route'() {
-      this.fetchProduct();
-    }
-  },
-  mounted() {
-    this.fetchProduct();
-  }
-};
+<script setup>
+import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const props = defineProps({ id: { type: [String, Number], required: true } })
+
+// State
+const product = ref(null)
+const similarProducts = ref([])
+const cart = ref([])
+const total = ref(0)
+
+// Fetch and update
+const fetchProduct = async (productId) => {
+  try {
+    const res = await fetch(`https://fakestoreapi.com/products/${productId}`)
+    product.value = await res.json()
+    fetchSimilar()
+  } catch (e) { console.error(e) }
+}
+const fetchSimilar = async () => {
+  if (!product.value) return
+  const res = await fetch('https://fakestoreapi.com/products')
+  const all = await res.json()
+  similarProducts.value = all.filter(p => p.category === product.value.category && p.id !== product.value.id).slice(0,4)
+}
+
+// Cart operations
+const calculateTotal = () => { total.value = cart.value.reduce((sum,p) => sum+p.price,0) }
+const addToCart = (item) => { cart.value.push(item); calculateTotal(); document.body.classList.add('activeTabCart') }
+const clearCart = () => { cart.value=[]; total.value=0; document.body.classList.remove('activeTabCart') }
+const checkout = () => { if(!cart.value.length) return alert('Cart is empty'); alert(`Checked out ${cart.value.length} items totaling R${total.value.toFixed(2)}`); clearCart() }
+const toggleSidebar = () => { document.body.classList.toggle('activeTabCart') }
+
+// Lifecycle & watch
+const route = useRoute()
+onMounted(() => fetchProduct(props.id))
+watch(() => route.params.id, id=>fetchProduct(id))
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');

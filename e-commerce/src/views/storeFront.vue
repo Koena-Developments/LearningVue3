@@ -2,7 +2,7 @@
   <div class="container">
     <header>
       <div class="title">PRODUCT LIST</div>
-     <div class="icon-cart" @click="toggleSidebar">
+      <div class="icon-cart" @click="toggleSidebar">
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
@@ -11,7 +11,7 @@
       </div>
     </header>
 
-    <SearchBar :products="fakerstore" @search="handleSearch" />
+    <SearchBar :products="fakestore" @search="handleSearch" />
 
     <div class="listProduct">
       <ProductCard
@@ -32,71 +32,72 @@
   </div>
 </template>
 
-<script>
-import ProductCard from '@/components/ProductCard.vue';
-import ShoppingCart from '@/components/ShoppingCart.vue';
-import SearchBar from '@/components/SearchBar.vue';
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import ProductCard from '@/components/ProductCard.vue'
+import ShoppingCart from '@/components/ShoppingCart.vue'
+import SearchBar from '@/components/SearchBar.vue'
 
-export default {
-  name: 'StoreFront',
-  components: {
-    ProductCard,
-    ShoppingCart,
-    SearchBar
-  },
-  data() {
-    return {
-      fakerstore: [],
-      cart: [],
-      total: 0,
-      searchTerm: ''
-    };
-  },
-  computed: {
-    filteredProducts() {
-      const term = this.searchTerm.toLowerCase();
-      return this.fakerstore.filter(p => p.title.toLowerCase().includes(term));
-    }
-  },
-  methods: {
-    fetchProducts() {
-      fetch('https://fakestoreapi.com/products')
-        .then(res => res.json())
-        .then(data => (this.fakerstore = data));
-    },
+// Reactive state
+const fakestore  = ref([])
+const cart       = ref([])
+const total      = ref(0)
+const searchTerm = ref('')
 
-    addToCart(product) {
-      this.cart.push(product);
-      this.calculateTotal();
-      document.body.classList.add('activeTabCart');
-    },
+// Computed filtered products
+const filteredProducts = computed(() => {
+  const term = searchTerm.value.toLowerCase()
+  return fakestore.value.filter(p =>
+    p.title.toLowerCase().includes(term)
+  )
+})
 
-    removeProduct(product) {
-      const idx = this.cart.indexOf(product);
-      if (idx > -1) {
-        this.cart.splice(idx, 1);
-        this.calculateTotal();
-      }
-    },
+// Fetch products from API
+const fetchProducts = async () => {
+  try {
+    const res  = await fetch('https://fakestoreapi.com/products')
+    const data = await res.json()
+    fakestore.value = data
+  } catch (e) {
+    console.error('Fetch error:', e)
+  }
+}
 
-    calculateTotal() {
-      this.total = this.cart.reduce((sum, p) => sum + p.price, 0);
-    },
+// Calculate cart total
+const calculateTotal = () => {
+  total.value = cart.value.reduce((sum, p) => sum + p.price, 0)
+}
 
-    clearCart() {
-      this.cart = [];
-      this.total = 0;
-      document.body.classList.remove('activeTabCart');
-    },
+// Cart operations
+const addToCart = product => {
+  cart.value.push(product)
+  calculateTotal()
+  document.body.classList.add('activeTabCart')
+}
 
-    checkout() {
-      if (!this.cart.length)
-       {
-        return alert('Cart is empty');
-        }
+const removeProduct = product => {
+  const i = cart.value.indexOf(product)
+  if (i > -1) {
+    cart.value.splice(i, 1)
+    calculateTotal()
+  }
+}
 
-        // for now we can not checkout multiple products we can only check them out one by one
-      const paymentLinks = {
+const clearCart = () => {
+  cart.value = []
+  total.value = 0
+  document.body.classList.remove('activeTabCart')
+}
+
+const toggleSidebar = () => {
+  document.body.classList.toggle('activeTabCart')
+}
+
+const checkout = () => {
+  if (!cart.value.length) {
+    return alert('Cart is empty')
+  }
+  const paymentLinks = {
       1:  'https://buy.stripe.com/test_eVqaEZ6L6bgi5wMgOD1wY01', 
       2:  'https://buy.stripe.com/test_6oUeVfedy702aR655V1wY02',
       3:  'https://buy.stripe.com/test_6oU5kFglG3NQ2kA8i71wY03', 
@@ -118,39 +119,25 @@ export default {
       19: 'https://buy.stripe.com/test_00w3cx1qMgAC3oEdCr1wY0k',
       20: 'https://buy.stripe.com/test_fZubJ36L698acZe69Z1wY0l'
     };
-      const productId = this.cart[0].id;
-      const link = paymentLinks[productId]
-      if(link)
-      {
-        window.location.href=link;
-        return;
-      }
-        alert(`You checked out ${this.cart.length} items totaling R${this.total.toFixed(2)}`);
-      this.clearCart();
-
-    },
-
-    toggleSidebar() {
-      document.body.classList.toggle('activeTabCart');
-    },
-
-    handleSearch(term) {
-      this.searchTerm = term;
-    }
-  },
-  mounted() {
-    this.fetchProducts();
+  const link = paymentLinks[cart.value[0].id]
+  if (link) {
+    window.location.href = link
+  } else {
+    alert(`Checked out ${cart.value.length} items totaling R${total.value.toFixed(2)}`)
+    clearCart()
   }
-};
+}
+
+const handleSearch = term => {
+  searchTerm.value = term
+}
+
+// Lifecycle
+onMounted(fetchProducts)
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-}
 
 .container {
   width: 900px;
@@ -161,14 +148,8 @@ body {
   transition: transform 0.5s;
 }
 
-svg {
-  width: 30px;
-}
-
-svg:hover{
-  animation: cart_shake 0.2s;
-  animation-iteration-count: infinite;
-}
+svg { width: 30px; }
+svg:hover { animation: cart_shake 0.2s infinite; }
 
 header {
   display: flex;
@@ -180,9 +161,7 @@ header {
 .icon-cart {
   position: relative;
   cursor: pointer;
-  animation-name: cart_shake;
 }
-
 .icon-cart span {
   position: absolute;
   background: red;
@@ -197,9 +176,7 @@ header {
   right: -20px;
 }
 
-.title {
-  font-size: xx-large;
-}
+.title { font-size: xx-large; }
 
 .listProduct {
   display: grid;
@@ -207,28 +184,14 @@ header {
   gap: 20px;
 }
 
-body.activeTabCart .container {
-  transform: translateX(-20px);
-}
-
-body.activeTabCart .cartTab {
-  right: -59%;
-}
+body.activeTabCart .container { transform: translateX(-20px); }
+body.activeTabCart .cartTab { right: -59%; }
 
 @keyframes cart_shake {
-  0% {transform: rotate(12deg);}
-  100%{transform: rotate(-12deg);}
+  0%   { transform: rotate(12deg); }
+  100% { transform: rotate(-12deg); }
 }
 
-@media (max-width: 992px) {
-  .listProduct {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .listProduct {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+@media (max-width: 992px) { .listProduct { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .listProduct { grid-template-columns: repeat(2, 1fr); } }
 </style>
