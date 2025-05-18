@@ -4,24 +4,20 @@
     <div>{{ cartItem.title }}</div>
     <div>R{{ cartItem.price.toFixed(2) }}</div>
   </div>
-
-  
 </template>
 
-<script>
-export default {
-  name: 'CartItem',
-  props: {
-    cartItem: {
-      type: Object,
-      required: true
-    }
-  }
-};
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  cartItem: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
 <style scoped>
-
 .item {
   display: grid;
   grid-template-columns: 70px 1fr 50px;

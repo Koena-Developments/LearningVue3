@@ -1,13 +1,18 @@
 <template>
   <div class="cart-icon">
-   <span v-if="counter">{{ counter }}</span>
+    <span v-if="counter">{{ counter }}</span>
   </div>
 </template>
 
-<script>
-export default {
-  props: ['counter']
-};
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  counter: {
+    type: Number,
+    default: 0,
+  },
+});
 </script>
 
 <style scoped>

@@ -26,20 +26,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProductCard',
-  props: {
-    product: {
-      type: Object,
-      required: true
-    }
+<script setup>
+defineProps({
+  product: {
+    type: Object,
+    required: true
   }
-};
+});
+defineEmits(['add-to-cart', 'remove-product']);
 </script>
 
 <style scoped>
-
 .item {
   position: relative;
   display: flex;
@@ -116,5 +113,4 @@ export default {
   height: 150px;
   object-fit: contain;
 } 
-
 </style>

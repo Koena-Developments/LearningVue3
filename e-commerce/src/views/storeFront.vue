@@ -38,13 +38,11 @@ import ProductCard from '@/components/ProductCard.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
 import SearchBar from '@/components/SearchBar.vue'
 
-// Reactive state
 const fakestore  = ref([])
 const cart       = ref([])
 const total      = ref(0)
 const searchTerm = ref('')
 
-// Computed filtered products
 const filteredProducts = computed(() => {
   const term = searchTerm.value.toLowerCase()
   return fakestore.value.filter(p =>
@@ -52,7 +50,6 @@ const filteredProducts = computed(() => {
   )
 })
 
-// Fetch products from API
 const fetchProducts = async () => {
   try {
     const res  = await fetch('https://fakestoreapi.com/products')
@@ -63,12 +60,10 @@ const fetchProducts = async () => {
   }
 }
 
-// Calculate cart total
 const calculateTotal = () => {
   total.value = cart.value.reduce((sum, p) => sum + p.price, 0)
 }
 
-// Cart operations
 const addToCart = product => {
   cart.value.push(product)
   calculateTotal()

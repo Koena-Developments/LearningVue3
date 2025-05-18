@@ -19,17 +19,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SimilarProducts',
-  props: {
-    similarProducts: {
-      type: Array,
-      required: true
-    }
-  },
-  emits: ['select-product']
-}
+<script setup>
+defineProps({
+  similarProducts: {
+    type: Array,
+    required: true
+  }
+});
+
+defineEmits(['select-product']);
 </script>
 
 <style scoped>

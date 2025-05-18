@@ -1,7 +1,7 @@
 <template>
   <div class="cartTab">
     <h1>Shopping Cart</h1>
-    
+
     <div class="listCart">
       <CartItem v-for="(item, idx) in cartItems" :key="idx" :cartItem="item" />
     </div>
@@ -14,33 +14,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import CartItem from './CartItem.vue';
 
-export default {
-  name: 'ShoppingCart',
-  components: {
-    CartItem
+defineProps({
+  cartItems: {
+    type: Array,
+    required: true
   },
-  props: {
-    cartItems: {
-      type: Array,
-      required: true
-    },
-    totalAmount: {
-      type: Number,
-      required: true
-    }
+  totalAmount: {
+    type: Number,
+    required: true
   }
-};
+});
+
+defineEmits(['close-cart', 'checkout']);
 </script>
 
 <style scoped>
-
 .cartTab {
   width: 400px;
   max-width: 50%;
-  max-height: 30%; 
+  max-height: 30%;
   background: #353432;
   color: #eee;
   position: fixed;
@@ -64,7 +59,7 @@ export default {
 
 .totalAmount {
   position: fixed;
-  bottom: 79%; 
+  bottom: 79%;
   padding: 20px;
   font-size: 1.2em;
   font-weight: bold;
@@ -89,13 +84,12 @@ export default {
   font-weight: 500;
   cursor: pointer;
   padding: 15px 0;
-  font-size: 1em; 
+  font-size: 1em;
   transition: 0.5s ease-in-out;
 }
 
 .cartTab button:hover {
-  background: #8a7008; 
-  
+  background: #8a7008;
 }
 
 .cartTab .close {
@@ -104,11 +98,8 @@ export default {
   transition: 0.5s ease-in;
 }
 
-
-
 .cartTab .close:hover {
   background: darkgrey;
   color: white;
-
 }
 </style>

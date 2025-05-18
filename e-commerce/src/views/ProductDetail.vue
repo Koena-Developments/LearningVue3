@@ -7,7 +7,7 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
         </svg>
-        <span>{{ counter }}</span>
+        <span>{{ cart.length }}</span>
       </div>
     </header>
 
@@ -20,7 +20,7 @@
         <div class="price">R{{ product.price }}</div>
         
         <div class="buttons">
-          <button @click="handleAddToCartSimilar(product)">
+          <button @click="addToCart(product)">
             Add To Cart
             <span>
               <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -41,8 +41,7 @@
         <img :src="sim.image" alt="Similar product" />
         <h2>{{ sim.title }}</h2>
         <div class="price">R{{ sim.price }}</div>
-        <button @click="handleAddToCartSimilar(sim)">Add to Cart</button>
-        <!-- <button @click="handleRemoveSimilarProduct(sim)">Remove</button> -->
+        <button @click="addToCart(sim)">Add to Cart</button>
         <router-link :to="`/product/${sim.id}`"><button>View</button></router-link>
       </div>
     </div>
@@ -70,13 +69,11 @@ import { useRoute } from 'vue-router'
 
 const props = defineProps({ id: { type: [String, Number], required: true } })
 
-// State
 const product = ref(null)
 const similarProducts = ref([])
 const cart = ref([])
 const total = ref(0)
 
-// Fetch and update
 const fetchProduct = async (productId) => {
   try {
     const res = await fetch(`https://fakestoreapi.com/products/${productId}`)
@@ -91,14 +88,12 @@ const fetchSimilar = async () => {
   similarProducts.value = all.filter(p => p.category === product.value.category && p.id !== product.value.id).slice(0,4)
 }
 
-// Cart operations
 const calculateTotal = () => { total.value = cart.value.reduce((sum,p) => sum+p.price,0) }
 const addToCart = (item) => { cart.value.push(item); calculateTotal(); document.body.classList.add('activeTabCart') }
 const clearCart = () => { cart.value=[]; total.value=0; document.body.classList.remove('activeTabCart') }
 const checkout = () => { if(!cart.value.length) return alert('Cart is empty'); alert(`Checked out ${cart.value.length} items totaling R${total.value.toFixed(2)}`); clearCart() }
 const toggleSidebar = () => { document.body.classList.toggle('activeTabCart') }
 
-// Lifecycle & watch
 const route = useRoute()
 onMounted(() => fetchProduct(props.id))
 watch(() => route.params.id, id=>fetchProduct(id))

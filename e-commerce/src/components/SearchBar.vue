@@ -6,61 +6,59 @@
       placeholder="Search products..."
       @focus="showSuggestions = true"
       @blur="hideSuggestions"
-    />                                                  
+    />
     <ul v-if="showSuggestions && filteredSuggestions.length" class="suggestions">
-      <li v-for="s in filteredSuggestions" :key="s.id" @mousedown.prevent="selectSuggestion(s)">
+      <li
+        v-for="s in filteredSuggestions"
+        :key="s.id"
+        @mousedown.prevent="selectSuggestion(s)"
+      >
         {{ s.title }}
       </li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SearchBar',
-  data() {
-    return {
-      searchTerm: '',
-      showSuggestions: false
-    };
-  },
-  props: {
-  
-    products: {
-      type: Array,
-      required: true
-    }
-  },
-  computed: {
-   
-filteredSuggestions() {
- const term = this.searchTerm.toLowerCase();
-  if (term.length <= 2) {
-    return [];
-    }
-    return this.products.filter(p => p.title.toLowerCase().includes(term) || p.price.toString().includes(term)).slice(0, 5);
-}
+<script setup>
+import { ref, computed, watch } from 'vue';
 
-},
-  methods: {
-    
-    selectSuggestion(item) {
-      this.searchTerm = item.title;
-      this.$emit('search', this.searchTerm); 
-      this.showSuggestions = false;
-    },
-    hideSuggestions() {
-      setTimeout(() => (this.showSuggestions = false), 200);
-    },
-   
-    },
-
-  watch: {
-    searchTerm(newTerm) {
-      this.$emit('search', newTerm);
-    },
+const props = defineProps({
+  products: {
+    type: Array,
+    required: true
   }
+});
+
+const emit = defineEmits(['search']);
+
+const searchTerm = ref('');
+const showSuggestions = ref(false);
+
+const filteredSuggestions = computed(() => {
+  const term = searchTerm.value.toLowerCase();
+  if (term.length <= 2) return [];
+  return props.products
+    .filter(
+      (p) =>
+        p.title.toLowerCase().includes(term) ||
+        p.price.toString().includes(term)
+    )
+    .slice(0, 5);
+});
+
+const selectSuggestion = (item) => {
+  searchTerm.value = item.title;
+  emit('search', searchTerm.value);
+  showSuggestions.value = false;
 };
+
+const hideSuggestions = () => {
+  setTimeout(() => (showSuggestions.value = false), 200);
+};
+
+watch(searchTerm, (newVal) => {
+  emit('search', newVal);
+});
 </script>
 
 <style scoped>

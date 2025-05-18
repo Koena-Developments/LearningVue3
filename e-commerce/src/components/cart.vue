@@ -25,17 +25,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Cart',
-  props: {
-    cartItems: {
-      type: Array,
-      required: true
-    }
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+  cartItems: {
+    type: Array,
+    required: true,
   },
-  emits: ['remove-item', 'checkout']
-}
+});
+
+const emit = defineEmits(['remove-item', 'checkout']);
 </script>
 
 <style scoped>
