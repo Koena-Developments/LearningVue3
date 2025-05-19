@@ -1,84 +1,129 @@
+<!-- src/components/SideBarMenu.vue -->
 <template>
-  <div class="category">
-    <h1>filter</h1>
+  <aside class="sidebar">
+    <h2 class="sidebar__title">Filter By</h2>
 
-    <div class="contains">
-      <input type="radio" id="male" value="male" name="gender" v-model="selectedGender" @change="filterProducts">
-      <label for="male">Men</label>
-    </div>  
-    
-    <div class="contains">
-      <input type="radio" id="female" value="female" name="gender" v-model="selectedGender" @change="filterProducts">
-      <label for="female">Women</label>
-    </div>
+    <section class="sidebar__section">
+      <h3>Gender</h3>
+      <div class="option" v-for="g in genders" :key="g.value">
+        <input
+          type="radio"
+          :id="g.value"
+          :value="g.value"
+          name="gender"
+          v-model="selectedGender"
+          @change="emitFilters"
+        />
+        <label :for="g.value">{{ g.label }}</label>
+      </div>
+    </section>
 
-    <div class="contains">
-      <input type="radio" id="jewelry" value="" name="jewelry" v-model="selectedGender" @change="filterProducts">
-      <label for="jewelry">jewelry</label>
-    </div>  
-    
-    <div class="contains">
-      <input type="radio" id="electronics" value="electronics" v-model="selectedGender" @change="filterProducts">
-      <label for="electronics">Electronics</label>
-    </div>
-  </div>
+    <section class="sidebar__section">
+      <h3>Category</h3>
+      <div class="option" v-for="c in categories" :key="c.value">
+        <input
+          type="radio"
+          :id="c.value"
+          :value="c.value"
+          name="category"
+          v-model="selectedCategory"
+          @change="emitFilters"
+        />
+        <label :for="c.value">{{ c.label }}</label>
+      </div>
+    </section>
+
+    <button class="sidebar__reset" @click="resetFilters">Reset All</button>
+  </aside>
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 
-const selectedGender = ref('');
-const emit = defineEmits(['filter-gender']);
+const emit = defineEmits(['filter-change']);
 
-const filterProducts = () => {
-  emit('filter-gender', selectedGender.value);
+const genders = [
+  { label: 'Men',   value: 'male'   },
+  { label: 'Women', value: 'female' },
+];
+const categories = [
+  { label: 'Jewelry',     value: 'jewelery'   },
+  { label: 'Electronics', value: 'electronics' },
+  { label: 'Clothing',    value: 'clothing'    },
+];
+
+const selectedGender   = ref('');
+const selectedCategory = ref('');
+
+const emitFilters = () => {
+  emit('filter-change', {
+    gender:   selectedGender.value,
+    category: selectedCategory.value,
+  });
+};
+
+const resetFilters = () => {
+  selectedGender.value   = '';
+  selectedCategory.value = '';
+  emitFilters();
 };
 </script>
 
 <style scoped>
-.category {
-  border: 1px solid red;
-  border-radius: 5px;
-  position: relative;
-  top: -1279px;
-  display: flex; 
-  flex-direction: column;
-  margin-left: -8px;
-  height: 100vh; 
-  width: 26%; 
+.sidebar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 240px;
+  padding: 1.5rem;
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  border-right: 1px solid #eee;
 }
-
-input[type='radio'] {
-  box-sizing: border-box;
-  appearance: none;
-  background: white;
-  outline: 1px solid #333;
-  border: 3px solid white;
-  width: 10px;
-  height: 10px;
+.sidebar__title {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-
-.contains {
+.sidebar__section {
+  margin-bottom: 1.5rem;
+}
+.sidebar__section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+.option {
   display: flex;
-  flex-direction: row;
-  margin-top: 10px;
+  align-items: center;
+  margin: 0.5rem 0;
 }
-
-.contains, label{
-    margin: 5px;
+.option input {
+  margin-right: 0.75rem;
+  width: 16px;
+  height: 16px;
+  accent-color: #f43397; 
 }
-
-.contains input[type='radio']:hover {
-  background: #333;
-  border: 3px solid #333;
+.option label {
+  font-size: 0.95rem;
+  color: #555;
   cursor: pointer;
 }
-
-.category input {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+.sidebar__reset {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sidebar__reset:hover {
+  background: #f9f9f9;
 }
 </style>
-
-

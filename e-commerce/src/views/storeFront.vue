@@ -29,8 +29,14 @@
       @close-cart="toggleSidebar"
       @checkout="checkout"
     />
+  
+  
+
   </div>
+
+    <!-- <div class="">
   <SideBarMenu @filter-gender="filterProductsByGender" />
+</div> -->
 </template>
 
 <script setup>
