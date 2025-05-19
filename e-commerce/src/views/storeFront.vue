@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header>
-      <div class="title">PRODUCT LIST</div>
+      <div class="title">Searching for: {{searchTerm}}</div>
       <div class="icon-cart" @click="toggleSidebar">
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,6 +47,11 @@ const searchTerm = ref('')
 const selectedGender = ref('')
 const genderKeywords = ref(['men', 'women'])
 
+/*
+  currently we are filtering by gender (which we derive from the title)
+  we need to find a way to filter by category either electronics or clothing 
+  then we need to style it.
+*/
 const filteredProducts = computed(() => {
   const term = searchTerm.value.toLowerCase()
   return fakestore.value.filter(p => p.title.toLowerCase().includes(term) &&
@@ -96,7 +101,7 @@ const checkout = () => {
     return alert('Cart is empty')
   }
   const paymentLinks = {
-    1:  'https://buy.stripe.com/test_eVqaEZ6L6bgi5wMgOD1wY01', 
+      1:  'https://buy.stripe.com/test_eVqaEZ6L6bgi5wMgOD1wY01', 
       2:  'https://buy.stripe.com/test_6oUeVfedy702aR655V1wY02',
       3:  'https://buy.stripe.com/test_6oU5kFglG3NQ2kA8i71wY03', 
       4:  'https://buy.stripe.com/test_dRm3cx3yU7023oEbuj1wY04',
