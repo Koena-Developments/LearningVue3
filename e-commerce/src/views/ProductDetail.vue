@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch,defineProps } from 'vue'
 import { useRoute } from 'vue-router'
 
 const props = defineProps({ id: { type: [String, Number], required: true } })

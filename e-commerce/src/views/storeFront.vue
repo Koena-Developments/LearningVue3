@@ -143,8 +143,13 @@ onMounted(fetchProducts)
   transition: transform 0.5s;
 }
 
-svg { width: 30px; }
-svg:hover { animation: cart_shake 0.2s infinite; }
+svg {
+   width: 30px; 
+}
+
+svg:hover { 
+  animation: cart_shake 0.2s infinite; 
+}
 
 header {
   display: flex;
@@ -171,7 +176,9 @@ header {
   right: -20px;
 }
 
-.title { font-size: xx-large; }
+.title { 
+  font-size: xx-large;
+ }
 
 .listProduct {
   display: grid;
@@ -179,14 +186,32 @@ header {
   gap: 20px;
 }
 
-body.activeTabCart .container { transform: translateX(-20px); }
-body.activeTabCart .cartTab { right: -59%; }
+body.activeTabCart .container 
+{ transform: 
+  translateX(-40px);
+}
+body.activeTabCart .cartTab
+ {
+   right: -59%; 
+}
 
 @keyframes cart_shake {
   0%   { transform: rotate(12deg); }
   100% { transform: rotate(-12deg); }
 }
 
-@media (max-width: 992px) { .listProduct { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .listProduct { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 992px)
+ { 
+  .listProduct 
+  { 
+    grid-template-columns: repeat(3, 1fr);
+   } 
+  }
+@media (max-width: 768px) 
+{ 
+  .listProduct
+  {
+     grid-template-columns: repeat(2, 1fr);
+  }
+  }
 </style>

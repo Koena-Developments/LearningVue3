@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+import {defineProps, defineEmits} from 'vue'
 import CartItem from './CartItem.vue';
 
 defineProps({
