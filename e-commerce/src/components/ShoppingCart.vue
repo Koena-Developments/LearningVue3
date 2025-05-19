@@ -34,12 +34,14 @@ defineEmits(['close-cart', 'checkout']);
 
 <style scoped>
 .cartTab {
+
   width: 400px;
   max-width: 50%;
   max-height: 30%;
   background: #353432;
   color: #eee;
   position: fixed;
+  overflow: scroll;
   top: 0;
   right: -395px;
   bottom: 0;
@@ -72,19 +74,20 @@ defineEmits(['close-cart', 'checkout']);
 
 .btn {
   display: grid;
-  grid-template-columns: repeat(2, 0.5fr);
+  grid-template-columns: repeat(2, 1fr);
   position: fixed;
   bottom: 70%;
   width: 48%;
 }
 
 .cartTab button {
+
   background: #E8BC0E;
   border: none;
   font-family: Poppins;
   font-weight: 500;
   cursor: pointer;
-  padding: 15px 0;
+  padding: 15px 10px;
   font-size: 1em;
   transition: 0.5s ease-in-out;
 }

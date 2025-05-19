@@ -30,6 +30,7 @@
       @checkout="checkout"
     />
   </div>
+  <SideBarMenu @filter-gender="filterProductsByGender" />
 </template>
 
 <script setup>
@@ -37,17 +38,19 @@ import { ref, computed, onMounted } from 'vue'
 import ProductCard from '@/components/ProductCard.vue'
 import ShoppingCart from '@/components/ShoppingCart.vue'
 import SearchBar from '@/components/SearchBar.vue'
+import SideBarMenu from '@/components/SideBarMenu.vue'
 
-const fakestore  = ref([])
-const cart       = ref([])
-const total      = ref(0)
+const fakestore = ref([])
+const cart = ref([])
+const total = ref(0)
 const searchTerm = ref('')
+const selectedGender = ref('')
+const genderKeywords = ref(['men', 'women'])
 
 const filteredProducts = computed(() => {
   const term = searchTerm.value.toLowerCase()
-  return fakestore.value.filter(p =>
-    p.title.toLowerCase().includes(term)
-  )
+  return fakestore.value.filter(p => p.title.toLowerCase().includes(term) &&
+  (selectedGender.value ? genderKeywords.value.some(keyword => p.title.toLowerCase().includes(keyword)) : true))
 })
 
 const fetchProducts = async () => {
@@ -93,7 +96,7 @@ const checkout = () => {
     return alert('Cart is empty')
   }
   const paymentLinks = {
-      1:  'https://buy.stripe.com/test_eVqaEZ6L6bgi5wMgOD1wY01', 
+    1:  'https://buy.stripe.com/test_eVqaEZ6L6bgi5wMgOD1wY01', 
       2:  'https://buy.stripe.com/test_6oUeVfedy702aR655V1wY02',
       3:  'https://buy.stripe.com/test_6oU5kFglG3NQ2kA8i71wY03', 
       4:  'https://buy.stripe.com/test_dRm3cx3yU7023oEbuj1wY04',
@@ -113,7 +116,7 @@ const checkout = () => {
       18: 'https://buy.stripe.com/test_4gM6oJ5H21FI1gweGv1wY0j',
       19: 'https://buy.stripe.com/test_00w3cx1qMgAC3oEdCr1wY0k',
       20: 'https://buy.stripe.com/test_fZubJ36L698acZe69Z1wY0l'
-    };
+  }
   const link = paymentLinks[cart.value[0].id]
   if (link) {
     window.location.href = link
@@ -127,7 +130,10 @@ const handleSearch = term => {
   searchTerm.value = term
 }
 
-// Lifecycle
+const filterProductsByGender = gender => {
+  selectedGender.value = gender
+}
+
 onMounted(fetchProducts)
 </script>
 
@@ -144,11 +150,11 @@ onMounted(fetchProducts)
 }
 
 svg {
-   width: 30px; 
+  width: 30px;
 }
 
-svg:hover { 
-  animation: cart_shake 0.2s infinite; 
+svg:hover {
+  animation: cart_shake 0.2s infinite;
 }
 
 header {
@@ -176,9 +182,9 @@ header {
   right: -20px;
 }
 
-.title { 
+.title {
   font-size: xx-large;
- }
+}
 
 .listProduct {
   display: grid;
@@ -186,32 +192,26 @@ header {
   gap: 20px;
 }
 
-body.activeTabCart .container 
-{ transform: 
-  translateX(-40px);
+body.activeTabCart .container {
+  transform: translateX(-50px);
 }
-body.activeTabCart .cartTab
- {
-   right: -59%; 
+body.activeTabCart .cartTab {
+  right: -59%;
 }
 
 @keyframes cart_shake {
-  0%   { transform: rotate(12deg); }
+  0% { transform: rotate(12deg); }
   100% { transform: rotate(-12deg); }
 }
 
-@media (max-width: 992px)
- { 
-  .listProduct 
-  { 
+@media (max-width: 992px) {
+  .listProduct {
     grid-template-columns: repeat(3, 1fr);
-   } 
   }
-@media (max-width: 768px) 
-{ 
-  .listProduct
-  {
-     grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 768px) {
+  .listProduct {
+    grid-template-columns: repeat(2, 1fr);
   }
-  }
+}
 </style>
