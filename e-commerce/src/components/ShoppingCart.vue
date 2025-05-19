@@ -1,11 +1,9 @@
 <template>
   <div class="cartTab">
     <h1>Shopping Cart</h1>
-
     <div class="listCart">
       <CartItem v-for="(item, idx) in cartItems" :key="idx" :cartItem="item" />
     </div>
-
     <div class="totalAmount">R{{ totalAmount.toFixed(2) }}</div>
     <div class="btn">
       <button class="close" @click="$emit('close-cart')">CLOSE</button>

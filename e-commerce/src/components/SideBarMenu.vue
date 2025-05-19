@@ -47,6 +47,7 @@ const filterProducts = () => {
   height: 100vh; 
   width: 26%; 
 }
+
 input[type='radio'] {
   box-sizing: border-box;
   appearance: none;
@@ -76,9 +77,8 @@ input[type='radio'] {
 .category input {
     display: flex;
     flex-direction: column;
-  margin-top: 10px;
+    margin-top: 10px;
 }
-
 </style>
 
 

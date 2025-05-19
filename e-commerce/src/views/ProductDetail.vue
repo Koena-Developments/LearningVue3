@@ -426,7 +426,7 @@ body.activeTabCart .container {
   font-family: Poppins;
   font-weight: 500;
   cursor: pointer;
-  padding: 15px 0;
+  padding: 15px 0px;
   font-size: 1em;
   transition: background-color 0.3s ease;
 }

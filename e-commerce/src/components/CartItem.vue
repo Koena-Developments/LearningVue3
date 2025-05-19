@@ -27,7 +27,9 @@ const props = defineProps({
   padding: 10px;
 }
 
+
 .item img {
   width: 100%;
+  border-radius: 5px;
 }
 </style>
